@@ -1,63 +1,92 @@
-<!-- Замените старую #toolbar и #menuBar на это: -->
-<div id="menubar">
-  <div class="menu-group">
-    <div class="menu">
-      <span class="menu-title">Файл</span>
-      <div class="menu-content">
-        <div onclick="newFile()">Новый</div>
-        <div onclick="openFile()">Открыть...</div>
-        <div onclick="saveFile()">Сохранить</div>
-        <div onclick="saveAs()">Сохранить как...</div>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ExelScript Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Меню и панель инструментов -->
+  <div id="menubar">
+    <div class="menu-group">
+      <div class="menu">
+        <span class="menu-title">Файл</span>
+        <div class="menu-content">
+          <div onclick="newFile()">Новый</div>
+          <div onclick="openFile()">Открыть...</div>
+          <div onclick="saveFile()">Сохранить</div>
+          <div onclick="saveAs()">Сохранить как...</div>
+        </div>
+      </div>
+      <div class="menu">
+        <span class="menu-title">Инструменты</span>
+        <div class="menu-content">
+          <div onclick="convertToPython()">Конвертер в Python</div>
+          <div onclick="toggleVisualEditor()">Визуальный редактор</div>
+        </div>
+      </div>
+      <div class="menu">
+        <span class="menu-title">Справка</span>
+        <div class="menu-content">
+          <div onclick="showHelp()">О ExelScript</div>
+        </div>
       </div>
     </div>
-    <div class="menu">
-      <span class="menu-title">Инструменты</span>
-      <div class="menu-content">
-        <div onclick="convertToPython()">Конвертер в Python</div>
-        <div onclick="toggleVisualEditor()">Визуальный редактор</div>
+
+    <div class="toolbar-right">
+      <select id="langSelect">
+        <option value="1">Exel Sheets Script (таблицы)</option>
+        <option value="2">Exel Code Script (обучение)</option>
+        <option value="3">Exel Script Classic (БД)</option>
+      </select>
+      <button id="btnNew">📄 Новый</button>
+      <button id="btnOpen">📂 Открыть</button>
+      <button id="btnSave">💾 Сохранить</button>
+      <button id="btnRun">▶ Запустить</button>
+      <button id="btnVisualEditor" style="display:none;">🎨 Визред</button>
+    </div>
+  </div>
+
+  <!-- Основной контейнер -->
+  <div class="main-container">
+    <!-- Редактор -->
+    <div class="editor-section">
+      <div class="line-numbers" id="lineNumbers">1</div>
+      <textarea id="codeEditor" spellcheck="false">ExelScript</textarea>
+    </div>
+
+    <!-- Превью / Браузер -->
+    <div class="preview-section">
+      <div class="browser-toolbar">
+        <input type="text" id="browserUrl" placeholder="URL (например: https://example.com)">
+        <button id="btnGo">Найти</button>
+        <button id="btnClear">×</button>
       </div>
-    </div>
-    <div class="menu">
-      <span class="menu-title">Справка</span>
-      <div class="menu-content">
-        <div onclick="showHelp()">О ExelScript</div>
-      </div>
+      <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
     </div>
   </div>
 
-  <div class="toolbar-right">
-    <select id="langSelect">
-      <option value="1">Exel Sheets Script (таблицы)</option>
-      <option value="2">Exel Code Script (обучение)</option>
-      <option value="3">Exel Script Classic (БД)</option>
-    </select>
-    <button id="btnNew">📄 Новый</button>
-    <button id="btnOpen">📂 Открыть</button>
-    <button id="btnSave">💾 Сохранить</button>
-    <button id="btnRun">▶ Запустить</button>
-    <button id="btnVisualEditor" style="display:none;">🎨 Визред</button>
-  </div>
-</div>
-
-<div class="main-container">
-  <div class="editor-section">
-    <div class="line-numbers" id="lineNumbers">1</div>
-    <textarea id="codeEditor" spellcheck="false">ExelScript</textarea>
-  </div>
-
-  <div class="preview-section">
-    <div class="browser-toolbar">
-      <input type="text" id="browserUrl" placeholder="URL (например: https://example.com)">
-      <button id="btnGo">Найти</button>
-      <button id="btnClear">×</button>
+  <!-- Визуальный редактор (скрыт) -->
+  <div id="visualEditor" class="hidden">
+    <h3>Визуальный редактор (Exel Code Script)</h3>
+    <div id="blocksPalette">
+      <button class="block" data-type="print">🖨️ Печать</button>
+      <button class="block" data-type="var">📝 Переменная</button>
+      <button class="block" data-type="loop">🔁 Цикл</button>
+      <button class="block" data-type="if">❓ Условие</button>
     </div>
-    <iframe id="previewFrame" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+    <div id="workspace">Перетаскивайте блоки сюда...</div>
+    <button onclick="generateCodeFromBlocks()">Сгенерировать код</button>
+    <button onclick="toggleVisualEditor()">← Назад в код</button>
   </div>
-</div>
 
-<!-- Визуальный редактор -->
-<div id="visualEditor" class="hidden">
-  <!-- (остаётся без изменений) -->
-</div>
+  <!-- Скрытый input для открытия файлов -->
+  <input type="file" id="fileInput" accept=".es,.espy,.escl" style="display:none">
 
-<input type="file" id="fileInput" accept=".es,.espy,.escl" style="display:none">
+  <script src="utils.js"></script>
+  <script src="exelscript-syntax.js"></script>
+  <script src="visual-editor.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
