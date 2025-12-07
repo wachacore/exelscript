@@ -1,0 +1,169 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#toolbar {
+  background: #252526;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.logo { font-weight: bold; color: #4ec9b0; }
+.version-status { color: #ce9178; font-style: italic; }
+
+button {
+  background: #3c3c3c;
+  color: white;
+  border: 1px solid #555;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button:hover { background: #4a4a4a; }
+
+.main-container {
+  display: flex;
+  height: calc(100vh - 70px);
+}
+
+.editor-section {
+  flex: 1;
+  display: flex;
+  position: relative;
+  background: #1e1e1e;
+}
+
+#lineNumbers {
+  text-align: right;
+  padding: 12px 8px;
+  background: #252526;
+  color: #858585;
+  font-family: monospace;
+  user-select: none;
+  white-space: pre;
+  overflow: hidden;
+}
+
+#codeEditor {
+  flex: 1;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  padding: 12px 8px 12px 24px;
+  border: none;
+  outline: none;
+  resize: none;
+  line-height: 1.4;
+  white-space: pre;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.preview-section {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  background: #2d2d2d;
+  border-left: 1px solid #3c3c3c;
+}
+
+.browser-toolbar {
+  padding: 8px;
+  background: #333;
+  display: flex;
+  gap: 6px;
+}
+
+.browser-toolbar input {
+  flex: 1;
+  padding: 4px 8px;
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 3px;
+}
+
+#previewFrame {
+  flex: 1;
+  border: none;
+  background: white;
+}
+
+#menuBar {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background: #2d2d2d;
+  display: flex;
+  z-index: 100;
+}
+
+.menu {
+  position: relative;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+.menu:hover { background: #3e3e3e; }
+
+.menu-title {
+  user-select: none;
+}
+.menu-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #3e3e3e;
+  border: 1px solid #555;
+  flex-direction: column;
+  min-width: 180px;
+}
+.menu:hover .menu-content { display: flex; }
+
+.menu-content div {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.menu-content div:hover { background: #4a4a4a; }
+
+#visualEditor {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #1a1a1a;
+  z-index: 200;
+  padding: 20px;
+  overflow: auto;
+}
+
+.hidden { display: none !important; }
+
+#blocksPalette {
+  margin-bottom: 16px;
+}
+.block {
+  margin: 4px;
+  padding: 8px;
+  background: #4a69bd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: grab;
+}
+#workspace {
+  min-height: 300px;
+  background: #2d2d2d;
+  padding: 16px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
